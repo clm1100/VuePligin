@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入Vue的包 -->
+  <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <p>{{msg}}</p>
+    <my-input v-model="msg">   
+  </div>
+
+<script>
+Vue.component("my-input",{
+  template:`<div>
+    <input type="text" 
+    :value="currentValue" 
+    @input="Oninput">
+    </div>`,
+  props:["value"],
+  data(){
+    return {
+      currentValue:this.value
+    }
+  },
+  methods: {
+    Oninput($event){
+      this.currentValue = $event.target.value;
+      this.$emit('input',$event.target.value)
+    }
+  },
+  created () {
+    console.log(this.value)
+  }
+})
+
+new Vue({
+  el:"#app",
+  data:{
+    msg:"初始值"
+  }
+})
+</script>
+</body>
+
+</html>

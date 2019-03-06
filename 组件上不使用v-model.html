@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入Vue的包 -->
+  <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+<div id="app">
+<p>{{msg}}</p>
+<!-- 使用自定义子组件,通过value绑定msg ,-->
+<my-inputt :value="msg" @input="changemsg">
+</div>
+
+<script>
+// 1、自定义组件,
+// a、用props接收value传递过来的参数,
+// b、用内部数据接收value
+// c、新建oninput方法，更改currentvalue,
+//   让子组件函数触发父组件函数，并传值
+// d、建立模板，在文本框中绑定通过value绑定currentvalue，
+//    通过input绑定oninput事件
+Vue.component("my-inputt", {
+    template: `<div>
+    my-input:
+    <input 
+    type="text" 
+    :value=currentvalue 
+    @input="oninput"/>
+    </div>`,
+    props: ["value"],
+    data() {
+        return {
+            currentvalue: this.value
+        }
+    },
+    methods: {
+        oninput(e) {
+            this.currentvalue = e.target.value;
+            this.$emit('input', e.target.value)
+        }
+    }
+})
+
+new Vue({
+    el:"#app",
+    data: {
+        msg: "初始值"
+    },
+    methods: {
+        changemsg(v) {
+            this.msg = v
+        }
+    }
+})
+</script>
+</body>
+
+</html>

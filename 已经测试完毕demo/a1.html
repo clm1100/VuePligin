@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入Vue的包 -->
+  <script src="./lib/vue-2.4.0.js"></script>
+  <style>
+  /* 组件样式 */
+  .dialog-content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+ }
+ .none {
+     display: none
+ }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p>hello world</p>
+  </div>
+
+  <script>
+    // =================组件开始================================
+ var Alert = {};
+    Alert.install = function (Vue, options) {
+        console.log(options)
+        Vue.prototype.$show = function (msg) {
+            console.log(msg)
+            instance.show(msg)
+        }
+        Vue.prototype.$hide = function () {
+            instance.hide()
+        }
+        let AlertConstructor =Vue.extend({
+            template: '<div class="dialog-content" v-show="xian">{{msg}}</div>',
+            data:function(){
+                return {
+                    xian:false,
+                    msg:options
+                }
+            },
+            methods: {
+                show:function(msg){
+                    this.xian = true
+                    this.msg = msg;
+                },
+                hide:function(){
+                    this.xian = false
+                }
+            }
+        })
+
+        // let AlertConstructor =  Vue.component('mycom1', {
+        //     template: '<div class="dialog-content" v-show="xian">{{msg}}</div>',
+        //     data:function(){
+        //         return {
+        //             xian:false,
+        //             msg:options
+        //         }
+        //     },
+        //     methods: {
+        //         show:function(msg){
+        //             this.xian = true
+        //             this.msg = msg;
+        //         },
+        //         hide:function(){
+        //             this.xian = false
+        //         }
+        //     }
+        // })
+
+
+
+        instance = new AlertConstructor({
+                el: document.createElement('div')
+            });
+        console.log(instance)
+        document.body.appendChild(instance.$el);      
+    }
+///========================组件结束======================================/   
+
+// 注册组件
+   Vue.use(Alert,"默认显示信息")
+    var vm = new Vue({
+      el: '#app',  
+      data: { 
+        msg: '欢迎学习Vue' 
+      },
+      created () {
+        // 实现两个方法 hide隐藏组件,show显示组件
+        
+          this.$show("我是啊啊啊");
+         setTimeout(()=>{
+            this.$hide();
+         },2000)
+      }
+    })
+  </script>
+</body>
+
+</html>

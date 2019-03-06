@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入Vue的包 -->
+  <script src="./lib/vue-2.4.0.js"></script>
+  <style>
+  /* 组件样式 */
+  .dialog-content{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translateY(-50%);
+    transform: translateX(-50%);
+ }
+ .none {
+     display: none
+ }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p>hello world</p>
+  </div>
+
+  <script>
+    // =================组件开始================================
+    // 组件构造函数
+    let instance =new Vue({
+            template: '<div class="dialog-content" v-show="xian">{{msg}}</div>',
+            data:function(){
+                return {
+                    xian:false,
+                    msg:"自定义信息"
+                }
+            },
+            methods: {
+                show:function(msg){
+                    this.xian = true
+                    this.msg = msg;
+                },
+                hide:function(){
+                    this.xian = false
+                }
+            }
+        }).$mount()
+    // 组件实例化;
+    // let instance = new AlertConstructor().$mount();
+    console.log(instance)
+    console.log(instance.$el)
+///========================组件结束======================================/   
+
+  </script>
+</body>
+
+</html>

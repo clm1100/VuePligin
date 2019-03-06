@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 导入Vue的包 -->
+  <script src="./lib/vue-2.4.0.js"></script>
+  <style>
+    /* 组件样式 */
+    .dialog-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%);
+      transform: translateX(-50%);
+    }
+
+    .none {
+      display: none
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p v-model="h"></p>
+    <input type="text" v-model="h">
+  </div>
+
+  <script>
+    // =================开发插件开始================================
+    var MyAlert = {
+      install: function (Vue, options) {
+        let AlertConstructor = Vue.extend({
+          template: '<div class="dialog-content" v-show="xian" v-model="msg"></div>',
+          data: function () {
+            return {
+              xian: false,
+              msg: "自定义信息"
+            }
+          },
+          methods: {
+            show: function (msg) {
+              this.xian = true
+              this.msg = msg;
+            },
+            hide: function () {
+              this.xian = false
+            }
+          }
+        })
+        // 组件实例化,生成dom但是不渲染;
+        let instance = new AlertConstructor().$mount();
+        // 在组件原型上添加$show显示方法
+        Vue.prototype.$show = function (msg) {
+          instance.show(msg)
+        };
+        // 在组件原型上添加$hide隐藏方法
+        Vue.prototype.$hide = function (msg) {
+          instance.show(msg)
+        };
+        // 将生成的组件实例dom插入body中。
+        document.body.appendChild(instance.$el);
+      }
+    }
+    ///========================开发插件结束======================================/ 
+    Vue.use(MyAlert);
+    new Vue({
+      el: "#app",
+      data:{h:"333"},
+      mounted () {
+        this.$show("123");
+        setTimeout(()=>{
+          this.$hide()
+        },2000)
+      }
+    })
+  </script>
+</body>
+</html>
