@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>hello world</p>
+    <my-html></my-html>
+  </div>
+  <script src="./lib/vue-2.4.0.js"></script>
+  <script>
+    Vue.component("my-html", {
+      data() {
+        return {
+          content: "",
+          title: "title"
+        }
+      },
+      template: `<div>
+                <div id='parent'>这里本来使用v-html,但是不能解析插值表达式</div>
+                <h1>{{title}}</h1>
+                </div>`,
+      mounted() {
+        // 将组件数据拷贝,
+        // 用一个组件实例来渲染html格式字符串生成dom
+        // dom操作将生成的dom插入页面
+        let obj = Object.assign({}, this.$data);
+        let component = Vue.extend({
+          template: `<div >我是要渲染的html格式字符串{{title}}</div>`,
+          data() {
+            return obj
+          }
+        })
+        let dom = new component().$mount().$el;
+        document.querySelector("#parent").appendChild(dom)
+      }
+    })
+    new Vue({
+      el: "#app"
+    })
+  </script>
+</body>
+
+</html>
