@@ -74,8 +74,30 @@ function show(){
         }
     }
 }
- 
-document.onscroll = show
+//  扩展防抖方法debounce
+function debounce(cb){
+    var timer = null;
+    return function(e){
+        console.log(111)
+        var context = this;
+        var event = e;
+        if(timer){
+            clearTimeout(timer);
+            timer  = setTimeout(function(){
+                cb.call(context,event)
+            },600)
+        }else{
+            
+            timer  = setTimeout(function(){
+                cb.call(context,event)
+            },600)
+        }
+    }
+}
+document.onscroll = debounce(show);
+show();
+
+
 </script>
 </body>
 </html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [[2,1,1],[1,1,0],[0,1,1]];
+        let M = 3;
+        function initData(a) {
+            var
+                result = [],
+                n = 0,
+                m = 0,
+                j = 0;
+            for (j = 0; j < M; j++) {
+                result[j * M + 0] = { status: a[j][0], willBletOthers: a[j][0] === 2 };
+                result[j * M + 1] = { status: a[j][1], willBletOthers: a[j][1] === 2 };
+                result[j * M + 2] = { status: a[j][2], willBletOthers: a[j][2] === 2 };
+
+                if (a[j][0] == 1) {
+                    n += 1;
+                }
+                if (a[j][1] == 1) {
+                    n += 1;
+                }
+                if (a[j][2] == 1) {
+                    n += 1;
+                }
+
+                if (a[j][0] == 2) {
+                    m += 1;
+                }
+                if (a[j][1] == 2) {
+                    m += 1;
+                }
+                if (a[j][2] == 2) {
+                    m += 1;
+                }
+            }
+            return {
+                result: result,
+                n: n,
+                m: m
+            };
+        }
+        console.log(initData(arr))
+    </script>
+</body>
+
+</html>

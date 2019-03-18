@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .out{width: 100px;height: 3000px;background-color: #f45;position: relative;}
+    .inner{
+        width: 50px;
+        height: 200px;
+        background-color: yellow;
+        position: absolute;
+        bottom:0;
+    }
+    </style>
+</head>
+<body>
+    <div class="out">
+        <div class="inner">
+            213123
+        </div>
+    </div>
+<script>
+function getscreenheight(){
+        return window.innerHeight||document.documentElement.clientHeight
+    }
+ function gettop(){
+     return document.querySelector(".inner").getBoundingClientRect().top;
+ }
+ function show(){
+    console.log(getscreenheight())
+    console.log(gettop());
+    if(getscreenheight()-gettop()>=0){
+        console.log("出来了")
+    }
+}
+ 
+document.onscroll = show
+</script>
+</body>
+</html>
