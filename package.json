@@ -1,4 +1,7 @@
 {
   "name": "",
-  "version": ""
+  "version": "",
+  "dependencies": {
+    "a.js": "0.0.1"
+  }
 }

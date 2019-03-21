@@ -104,84 +104,51 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"m1.js":[function(require,module,exports) {
-// let count = 0
-// export {
-//     count
-// }
-// setTimeout(function () {
-//     count+=1,
-//   console.log(`m1内部5秒后改变count值${count}`)
-// }, 500)
-// let obj = {
-//     hobby:[1,2,3,4]
-// }
-// export default obj;
-// setTimeout(()=>{
-//     obj.hobby.push(99999);
-//     console.log(`500s${obj.hobby}`)
-// },500)
-// let a = 10
-// export {a}
-// let count = 1
-// function setcount(){
-//     count ++
-// }
-// setTimeout(() => {
-//   console.log('a', count)
-// }, 1000)
-// export {
-//   count,
-//   setcount
-// }
-// module.exports = {
-//     count,
-//   setcount
-// }
-// import './index.js';
-// console.log("m1")
-require('./index.js');
+})({"b.js":[function(require,module,exports) {
+"use strict";
 
-module.exports = {
-  a: 100
-};
-console.log("m21");
-},{"./index.js":"index.js"}],"index.js":[function(require,module,exports) {
-// const {count} = require('./m1.js')
-// setTimeout(function () {
-//   console.log('read count after 1000ms in commonjs is', count)
-// }, 1000)
-// import {count} from './m1.js'
-// setTimeout(function () {
-//   console.log('1秒之后读取cout', count)
-// }, 1000)
-// const count = require('./m1.js')
-// setTimeout(function () {
-//   console.log('read count after 1000ms in commonjs is', count)
-// }, 1000)
-// import count from './m1.js'
-// setTimeout(function () {
-//   console.log('1秒之后读取cout', count)
-// }, 1000)
-// import {a} from "a.js";
-// a=2000;
-// function foo(){
-//     import {count,setcount} from "./m1.js";
-// }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.bar = bar;
+
+var _a = require("./a.js");
+
+function bar() {
+  console.log('bar'); //   if (Math.random() > 0.5) {
+
+  (0, _a.foo)(); //   }
+} // var foo = require("./a.js");
+// function bar() {
+//     console.log('bar');
+//     foo();
+//   }
+// module.exports= bar
+},{"./a.js":"a.js"}],"a.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.foo = foo;
+
+var _b = require("./b.js");
+
+function foo() {
+  console.log('foo');
+  (0, _b.bar)();
+  console.log('执行完毕');
+}
+
+foo(); // var bar = require("./b.js");
+// function foo() {
+//     console.log('foo');
+//     bar();
+//     console.log('执行完毕');
+//   }
+// module.exports = foo()
 // foo();
-// // setcount();
-// // console.log(count);
-// if(true){
-//     import {count,setcount} from "./m1.js";
-// }else{
-//     import {count,setcount} from "./m2.js";
-// }
-// import './m1.js';
-// console.log("index111");
-var a = require('./m1.js');
-
-console.log("index111");
-},{"./m1.js":"m1.js"}],"../../../../dev/nvm/v9.8.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./b.js":"b.js"}],"../../../../dev/nvm/v9.8.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -350,5 +317,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../../../dev/nvm/v9.8.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/插件开发.e31bb0bc.map
+},{}]},{},["../../../../dev/nvm/v9.8.0/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","a.js"], null)
+//# sourceMappingURL=/a.9c17963e.map
