@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #test{
+            width: 100px;
+            height: 100px;
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div id="test">
+
+    </div>
+    <script>
+        var $test = document.getElementById('test')
+  $test.addEventListener('click', function (e) {
+      console.log(e);
+    console.log('1 click')
+  })
+
+  // FastClick简单实现
+  var targetElement = null
+  document.body.addEventListener('touchstart', function () {
+    // 记录点击的元素
+    targetElement = event.target
+  })
+  document.body.addEventListener('touchend', function (event) {
+    // 阻止默认事件（屏蔽之后的click事件）
+    event.preventDefault()
+    var touch = event.changedTouches[0]
+    // 合成click事件，并添加可跟踪属性forwardedTouchEvent
+    var clickEvent = document.createEvent('MouseEvents')
+    clickEvent.initMouseEvent('click', true, true, window, 1, touch.screenX, touch.screenY, touch.clientX, touch.clientY, false, false, false, false, 0, null)
+    clickEvent.forwardedTouchEvent = true // 自定义的
+    targetElement.dispatchEvent(clickEvent)
+  })
+    </script>
+</body>
+</html>

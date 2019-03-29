@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    *{
+            margin: 0;
+            padding: 0;
+        }
+    .out{
+        position: relative;
+    }
+    .inner{
+        width: 300px;
+        list-style: none;
+        margin: 0 auto;
+    }
+li{
+    width:300px;
+    height: 300px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+img{background: url("./image/t.gif");
+width: 100%;
+height: 100%;
+background-size: cover}
+
+    </style>
+</head>
+<body>
+<div class="out">
+    <ul class="inner">
+        <!-- 带渲染区域 -->
+    </ul>
+    <button>点击加载更多</button>
+</div>
+<script>
+    {
+
+        tag: 'ul',
+            attrs: {
+            id：'list'
+        },
+        children: [
+            {
+                tag: 'li',
+                attrs: {
+                    className: 'item'
+                },
+                children: ['item1']
+            }, {
+                tag: 'li',
+                attrs: {
+                    className: 'item'
+                },
+                children: ['item2']
+            }
+        ]
+    }
+</script>
+</body>
+</html>
