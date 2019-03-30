@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+<div id="app">
+    <p>hello world</p>
+    <my-html></my-html>
+</div>
+<script src="../lib/vue-2.4.0.js"></script>
+<script>
+    // 将html格式字符串转化为dom的函数
+    function htmlStrToDom(htmlstr, parentdata) {
+        let obj = Object.assign({}, parentdata);
+        let component = Vue.extend({
+            template: htmlstr,
+            data() {
+                return obj
+            }
+        })
+        let instance = new component().$mount();
+        return instance.$el
+    }
+    Vue.component("my-html", {
+        data() {
+            return {
+                content: "",
+                title: "哈哈哈哈哈",
+                
+            }
+        },
+        template: `<div>
+                    <div id='parent' v-html="content">这里本来使用v-html,但是不能解析插值表达式</div>
+                    <h1>{{title}}</h1>
+                </div>`,
+        mounted() {
+            // 通过innerHTML特性将其转化为html格式字符串;
+            let html = htmlStrToDom(`<div>我是要渲染的html格式字符串<h1>{{title}}</h1></div>`, this.$data).innerHTML;
+            // 修改content值,观察组件中要渲染html格式字符串的位置，我们还是用v-html来绑定
+            this.content = html;
+        }
+    })
+    new Vue({
+        el: "#app"
+    })
+</script>
+</body>
+
+</html>
